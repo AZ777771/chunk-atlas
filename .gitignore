@@ -1,0 +1,11 @@
+.gradle/
+build/
+run/
+out/
+.idea/
+*.iml
+.vscode/
+.DS_Store
+docs/
+run-server/
+.claude/worktrees/

@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "chunkatlas_server",
+	"version": "${version}",
+	"name": "Chunk Atlas Server",
+	"description": "The server side of Chunk Atlas. Put it on a dedicated server and operators can delete, copy, paste and generate chunks there from their Chunk Atlas map. Edits are made when the server stops, or right away with live editing on (/chunkatlas live on).",
+	"authors": [
+		"A7"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/chunk-atlas",
+		"sources": "https://github.com/AZ777771/chunk-atlas",
+		"issues": "https://github.com/AZ777771/chunk-atlas/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/chunkatlas_server/icon.png",
+	"accessWidener": "${access_widener}",
+	"environment": "server",
+	"entrypoints": {
+		"main": [
+			"dev.chunkatlas.server.ServerEdits"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.0",
+		"minecraft": "${minecraft_version}",
+		"java": ">=${java_version}",
+		"fabric-api": "*"
+	}
+}

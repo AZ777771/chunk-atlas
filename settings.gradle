@@ -1,0 +1,29 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'chunk-atlas'
+
+include 'core'
+
+def withExperimental = providers.gradleProperty('with_experimental').getOrElse('false').toBoolean()
+file('versions').eachDir { dir ->
+    def props = new Properties()
+    def propsFile = new File(dir, 'gradle.properties')
+    if (propsFile.exists()) {
+        propsFile.withInputStream { props.load(it) }
+    }
+    if (props.getProperty('experimental', 'false').toBoolean() && !withExperimental) {
+        return
+    }
+    if (new File(dir, 'build.gradle').exists()) {
+        include "versions:${dir.name}"
+        if (new File(dir, 'server/build.gradle').exists()) {
+            include "versions:${dir.name}:server"
+        }
+    }
+}

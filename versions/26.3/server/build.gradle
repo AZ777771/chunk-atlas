@@ -1,0 +1,73 @@
+plugins {
+    id 'net.fabricmc.fabric-loom'
+}
+
+base {
+    archivesName = 'chunk-atlas-server'
+}
+
+version = parent.version
+group = rootProject.group
+
+def shared = rootProject.file('server/src')
+
+sourceSets {
+    main {
+        java {
+            srcDirs = [new File(shared, 'main/java'), 'src/main/java', rootProject.file('src/main/java'), parent.file('src/main/java')]
+            include 'dev/chunkatlas/server/**', 'dev/chunkatlas/engine/**', 'dev/chunkatlas/net/**'
+            include(['Ids', 'Reg', 'Pos', 'Heights', 'Net', 'Version', 'Tickets', 'ChunkIo', 'Players'].collect { "dev/chunkatlas/port/${it}.java" })
+            include 'dev/chunkatlas/port/Perms.java'
+        }
+        resources.srcDirs = [new File(shared, 'main/resources'), 'src/main/resources']
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${parent.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${parent.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${parent.fabric_api_version}"
+    implementation project(':core')
+}
+
+processResources {
+    def props = [version: project.version, minecraft_version: parent.minecraft_version, java_version: parent.java_version, access_widener: parent.access_widener]
+    inputs.properties props
+    filesMatching('fabric.mod.json') {
+        expand props
+    }
+
+    from(parent.file("src/main/resources/${parent.access_widener}"))
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(parent.java_version)
+    targetCompatibility = JavaVersion.toVersion(parent.java_version)
+}
+
+def core = project(':core')
+
+jar {
+    from(core.sourceSets.main.output)
+    from(rootProject.file('LICENSE')) {
+        rename { "${it}_chunkatlas_server" }
+    }
+}
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    destinationDirectory = rootProject.layout.buildDirectory.dir('libs')
+}
+
+loom {
+    accessWidenerPath = parent.file("src/main/resources/${parent.access_widener}")
+    mods {
+        chunkatlas_server {
+            sourceSet sourceSets.main
+        }
+    }
+    runs {
+        server {
+            runDir "../../../run-server"
+        }
+    }
+}

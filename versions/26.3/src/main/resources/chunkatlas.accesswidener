@@ -1,0 +1,31 @@
+classTweaker	v1	official
+# Minecraft 26.3: the private parts of the game Chunk Atlas reads (the Loaded chunks layer, generating chunks, live
+# server edits, the world list, the seed map). The same file goes into the server add-on. 1.21.1 has its own copy with its names.
+
+# Tickets: chunks in memory and the tickets that keep them loaded
+accessible	field	net/minecraft/server/level/ChunkMap	visibleChunkMap	Lit/unimi/dsi/fastutil/longs/Long2ObjectLinkedOpenHashMap;
+accessible	field	net/minecraft/server/level/ChunkMap	pendingUnloads	Lit/unimi/dsi/fastutil/longs/Long2ObjectLinkedOpenHashMap;
+accessible	method	net/minecraft/server/level/ChunkMap	tick	(Ljava/util/function/BooleanSupplier;)V
+accessible	field	net/minecraft/world/level/TicketStorage	tickets	Lit/unimi/dsi/fastutil/longs/Long2ObjectOpenHashMap;
+accessible	field	net/minecraft/server/level/ServerLevel	entityManager	Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
+
+# ChunkIo: entities and points of interest as saved
+accessible	field	net/minecraft/world/level/entity/PersistentEntitySectionManager	permanentStorage	Lnet/minecraft/world/level/entity/EntityPersistentStorage;
+accessible	field	net/minecraft/world/level/chunk/storage/EntityStorage	simpleRegionStorage	Lnet/minecraft/world/level/chunk/storage/SimpleRegionStorage;
+accessible	field	net/minecraft/world/level/chunk/storage/EntityStorage	emptyChunks	Lit/unimi/dsi/fastutil/longs/LongSet;
+accessible	field	net/minecraft/world/level/chunk/storage/SectionStorage	simpleRegionStorage	Lnet/minecraft/world/level/chunk/storage/SimpleRegionStorage;
+
+# Client: the world list behind the map, and the dev tour that makes a world
+accessible	field	net/minecraft/client/gui/screens/worldselection/SelectWorldScreen	lastScreen	Lnet/minecraft/client/gui/screens/Screen;
+accessible	method	net/minecraft/client/gui/screens/worldselection/CreateWorldScreen	onCreate	()V
+
+# Seed map: chunks made in memory the game's way (the noise and surface steps, the fluid picker), and tree crowns
+accessible	method	net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator	doFill	(Lnet/minecraft/world/level/levelgen/NoiseChunk;Lnet/minecraft/world/level/chunk/ChunkAccess;)V
+accessible	method	net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator	buildSurface	(Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/world/level/levelgen/NoiseChunk;Lnet/minecraft/world/level/levelgen/RandomState;Lnet/minecraft/world/level/biome/BiomeManager;Ljava/util/Set;Lnet/minecraft/world/level/levelgen/material/rule/MaterialRule;)V
+accessible	field	net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator	globalFluidPicker	Ljava/util/function/Supplier;
+accessible	field	net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacer	radius	Lnet/minecraft/util/valueproviders/IntProvider;
+
+# Gfx: shapes with their own texture corners (the minimap's terrain, turned and round), added to the frame's GUI state
+accessible	field	net/minecraft/client/gui/GuiGraphicsExtractor	guiRenderState	Lnet/minecraft/client/renderer/state/gui/GuiRenderState;
+accessible	field	net/minecraft/client/gui/GuiGraphicsExtractor	scissorStack	Lnet/minecraft/client/gui/GuiGraphicsExtractor$ScissorStack;
+accessible	class	net/minecraft/client/gui/GuiGraphicsExtractor$ScissorStack

@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "chunkatlas",
+	"version": "${version}",
+	"name": "Chunk Atlas",
+	"description": "A world map, minimap and seed map that also edits your world: select chunks by rule, then delete, copy, paste, blend and generate them. Open it from the world list or while playing (K). Add Chunk Atlas Server to a server to edit chunks there too.",
+	"authors": [
+		"A7"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/chunk-atlas",
+		"sources": "https://github.com/AZ777771/chunk-atlas",
+		"issues": "https://github.com/AZ777771/chunk-atlas/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/chunkatlas/icon.png",
+	"accessWidener": "${access_widener}",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"dev.chunkatlas.ChunkAtlas"
+		],
+		"modmenu": [
+			"dev.chunkatlas.gui.ModMenuEntry"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.0",
+		"minecraft": "${minecraft_version}",
+		"java": ">=${java_version}",
+		"fabric-api": "*"
+	},
+	"custom": {
+		"world-tools": [
+			{
+				"title": "Map and chunks",
+				"open": "dev.chunkatlas.ChunkAtlas::open"
+			}
+		]
+	}
+}

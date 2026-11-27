@@ -1,0 +1,18 @@
+version = mod_version
+
+def dev = ":versions:${dev_minecraft}"
+tasks.register('runClient') {
+    group = 'fabric'
+    description = "Starts the ${dev_minecraft} dev client."
+    dependsOn "${dev}:runClient"
+}
+tasks.register('runAtlasClient') {
+    group = 'fabric'
+    description = "Starts the ${dev_minecraft} dev client named AtlasDev, to join the dev server."
+    dependsOn "${dev}:runAtlasClient"
+}
+tasks.register('runServer') {
+    group = 'fabric'
+    description = "Starts the ${dev_minecraft} dev server with the server add-on."
+    dependsOn "${dev}:server:runServer"
+}

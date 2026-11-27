@@ -1,0 +1,27 @@
+accessWidener	v2	named
+# Minecraft 1.21.1: the private parts of the game Chunk Atlas reads (the Loaded chunks layer, generating chunks, live
+# server edits, the world list), in Mojang names; Loom turns them into the game's own names in the jar. The same file
+# goes into the server add-on. 26.3 has its own copy.
+
+# Tickets: chunks in memory and the tickets that keep them loaded
+accessible	field	net/minecraft/server/level/ChunkMap	visibleChunkMap	Lit/unimi/dsi/fastutil/longs/Long2ObjectLinkedOpenHashMap;
+accessible	field	net/minecraft/server/level/ChunkMap	pendingUnloads	Lit/unimi/dsi/fastutil/longs/Long2ObjectLinkedOpenHashMap;
+accessible	method	net/minecraft/server/level/ChunkMap	getVisibleChunkIfPresent	(J)Lnet/minecraft/server/level/ChunkHolder;
+accessible	method	net/minecraft/server/level/ChunkMap	getUpdatingChunkIfPresent	(J)Lnet/minecraft/server/level/ChunkHolder;
+accessible	method	net/minecraft/server/level/ChunkMap	tick	(Ljava/util/function/BooleanSupplier;)V
+accessible	method	net/minecraft/server/level/ServerChunkCache	runDistanceManagerUpdates	()Z
+accessible	field	net/minecraft/server/level/DistanceManager	tickets	Lit/unimi/dsi/fastutil/longs/Long2ObjectOpenHashMap;
+accessible	method	net/minecraft/server/level/DistanceManager	tickingTracker	()Lnet/minecraft/server/level/TickingTracker;
+accessible	field	net/minecraft/server/level/ServerLevel	entityManager	Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
+
+# ChunkIo: chunks, entities and points of interest as saved
+accessible	field	net/minecraft/world/level/chunk/storage/ChunkStorage	worker	Lnet/minecraft/world/level/chunk/storage/IOWorker;
+accessible	field	net/minecraft/world/level/entity/PersistentEntitySectionManager	permanentStorage	Lnet/minecraft/world/level/entity/EntityPersistentStorage;
+accessible	field	net/minecraft/world/level/chunk/storage/EntityStorage	simpleRegionStorage	Lnet/minecraft/world/level/chunk/storage/SimpleRegionStorage;
+accessible	field	net/minecraft/world/level/chunk/storage/EntityStorage	emptyChunks	Lit/unimi/dsi/fastutil/longs/LongSet;
+accessible	field	net/minecraft/world/level/chunk/storage/SectionStorage	simpleRegionStorage	Lnet/minecraft/world/level/chunk/storage/SimpleRegionStorage;
+
+# Client: the world list behind the map and its picked world, and the dev tour that makes a world
+accessible	field	net/minecraft/client/gui/screens/worldselection/SelectWorldScreen	lastScreen	Lnet/minecraft/client/gui/screens/Screen;
+accessible	field	net/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry	summary	Lnet/minecraft/world/level/storage/LevelSummary;
+accessible	method	net/minecraft/client/gui/screens/worldselection/CreateWorldScreen	onCreate	()V
